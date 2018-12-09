@@ -6,5 +6,6 @@
   <packaging>pom</packaging>
   <modules>
   	<module>fibonacci</module>
+  	<module>Cubing</module>
   </modules>
 </project>

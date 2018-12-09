@@ -7,8 +7,8 @@ public class MainTest {
 	@Test
 	public void test() {
 		//int cases[][] = {}; 
-		String[][] res = {{"L+", "owwbwwbww"}, {"L-", "rwwrwwrww"}};
-		for(int i=0; i<3; i++)
+		String[][] res = {{"L+", "owwowwoww"}, {"L-", "rwwrwwrww"},{"F+ B+", "bbbwwwggg"} , {"L- U- L+ U- L- U- U- L+ U+ U+", "gwowwwrww"}};
+		for(int i=0; i<res.length; i++)
 			assertEquals(res[i][1], Main.solve1(res[i][0]));
 	}
 

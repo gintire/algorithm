@@ -23,7 +23,7 @@ public class Main {
 	}
 	
 	//U : 흰(w), D : 노(y), F : 빨(r), B : 오렌지(o), L : 초록(g), R : 파랑 (b)
-	public static void main(String[] argc) throws NumberFormatException, IOException {
+	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int cases = Integer.parseInt(br.readLine());
 		for (int i=0 ; i<cases; i++) {
@@ -44,8 +44,8 @@ public class Main {
 					if(str1[j+1].equals("-")) turnU(false);
 				}
 				if(str1[j].equals("D")) {
-					if(str1[j+1].equals("+")) turnD(true);
-					if(str1[j+1].equals("-")) turnD(false);
+					if(str1[j+1].equals("+")) turnD(false);
+					if(str1[j+1].equals("-")) turnD(true);
 				}
 				if(str1[j].equals("F")) {
 					if(str1[j+1].equals("+")) turnF(true);
@@ -67,74 +67,76 @@ public class Main {
 			}
 			
 		}
+		//StringBuilder sb = new StringBuilder("");
+		//for(int c=0; c<6; c++) {
 		for(int a=0; a<3; a++) {
 			StringBuilder sb = new StringBuilder("");
 			for (int b=0; b<3; b++) {
 				sb.append(cube[0][a][b]);
 			}
-			//sb.append("\n");
-			System.out.println(sb.toString());
+			sb.append("\n");
+			System.out.print(sb.toString());
 		}
+		//}
 		//return sb.toString();
 	}
 	private static void turnU (Boolean flag) {
 		// '+' 시계방향
 		if(flag) {
 			String temp[] = new String[9];
-			//cube[2][0][0] -> cube[4][0][2]
-			//cube[2][0][1] -> cube[4][1][2]
-			//cube[2][0][2] -> cube[4][2][2]
-			
+			//cube[2][0][0] -> cube[4][0][0]
+			//cube[2][0][1] -> cube[4][0][1]
+			//cube[2][0][2] -> cube[4][0][2]
 			for(int i=0; i<3; i++) {
-				temp[i] = cube[4][i][2];
-				cube[4][i][2] = cube[2][0][i];
+				temp[i] = cube[4][0][i];
+				cube[4][0][i] = cube[2][0][i];
 			}
-			//cube[4][0][2] -> cube[3][2][2]
-			//cube[4][1][2] -> cube[3][2][1]
-			//cube[4][2][2] -> cube[3][2][0]
+			//cube[4][0][0] -> cube[3][0][0]
+			//cube[4][0][1] -> cube[3][0][1]
+			//cube[4][0][2] -> cube[3][0][2]
 			for(int i=0; i<3; i++) {
-				temp[i+3] = cube[3][2][2-i];
-				cube[3][2][2-i] = temp[i];
+				temp[i+3] = cube[3][0][i];
+				cube[3][0][i] = temp[i];
 			}
-			//cube[3][2][2] -> cube[5][2][0]
-			//cube[3][2][1] -> cube[5][1][0]
-			//cube[3][2][0] -> cube[5][0][0]
+			//cube[3][0][0] -> cube[5][0][0]
+			//cube[3][0][1] -> cube[5][0][1]
+			//cube[3][0][2] -> cube[5][0][2]
 			for(int i=0; i<3; i++) {
-				temp[i+6] = cube[5][2-i][0];
-				cube[5][2-i][0] = temp[i+3];
+				temp[i+6] = cube[5][0][i];
+				cube[5][0][i] = temp[i+3];
 			}
-			//cube[5][2][0] -> cube[2][0][0]
-			//cube[5][1][0] -> cube[2][0][1]
-			//cube[5][0][0] -> cube[2][0][2]
+			//cube[5][0][0] -> cube[2][0][0]
+			//cube[5][0][1] -> cube[2][0][1]
+			//cube[5][0][2] -> cube[2][0][2]
 			for(int i=0; i<3; i++) {
 				cube[2][0][i] = temp[i+6];
 			}
 		} else {
 			String temp[] = new String[9];
-			//cube[2][0][0] -> cube[5][2][0]
-			//cube[2][0][1] -> cube[5][1][0]
-			//cube[2][0][2] -> cube[5][0][0]
+			//cube[2][0][0] -> cube[5][0][0]
+			//cube[2][0][1] -> cube[5][0][1]
+			//cube[2][0][2] -> cube[5][0][2]
 			for(int i=0; i<3; i++) {
-				temp[i] = cube[5][2-i][0];
-				cube[5][2-i][0] = cube[2][0][i];
+				temp[i] = cube[5][0][i];
+				cube[5][0][i] = cube[2][0][i];
 			}
-			//cube[5][2][0] -> cube[3][2][2]
-			//cube[5][1][0] -> cube[3][2][1]
-			//cube[5][0][0] -> cube[3][2][0]
+			//cube[5][0][0] -> cube[3][0][0]
+			//cube[5][0][1] -> cube[3][0][1]
+			//cube[5][0][2] -> cube[3][0][2]
 			for(int i=0; i<3; i++) {
-				temp[i+3] = cube[3][2][2-i];
-				cube[3][2][2-i] = temp[i];
+				temp[i+3] = cube[3][0][i];
+				cube[3][0][i] = temp[i];
 			}
-			//cube[3][2][2] -> cube[4][0][2]
-			//cube[3][2][1] -> cube[4][1][2]
-			//cube[3][2][0] -> cube[4][2][2]
+			//cube[3][0][0] -> cube[4][0][0]
+			//cube[3][0][1] -> cube[4][0][1]
+			//cube[3][0][2] -> cube[4][0][2]
 			for(int i=0; i<3; i++) {
-				temp[i+6] = cube[4][i][2];
-				cube[4][i][2] = temp[i+3];
+				temp[i+6] = cube[4][0][i];
+				cube[4][0][i] = temp[i+3];
 			}
-			//cube[4][0][2] -> cube[2][0][0]
-			//cube[4][1][2] -> cube[2][0][1]
-			//cube[4][2][2] -> cube[2][0][2]
+			//cube[4][0][0] -> cube[2][0][0]
+			//cube[4][0][1] -> cube[2][0][1]
+			//cube[4][0][2] -> cube[2][0][2]
 			for(int i=0; i<3; i++) {
 				cube[2][0][i] = temp[i+6];
 			}
@@ -146,61 +148,61 @@ public class Main {
 		// '+' 시계방향
 		if(flag) {
 			String temp[] = new String[9];
-			//cube[2][2][2] -> cube[5][0][2]
-			//cube[2][2][1] -> cube[5][1][2]
-			//cube[2][2][0] -> cube[5][2][2]
+			//cube[2][2][0] -> cube[5][2][0]
+			//cube[2][2][1] -> cube[5][2][1]
+			//cube[2][2][2] -> cube[5][2][2]
 			for(int i=0; i<3; i++) {
-				temp[i] = cube[5][i][2];
-				cube[5][i][2] = cube[2][2][2-i];
+				temp[i] = cube[5][0][i];
+				cube[5][2][i] = cube[2][2][i];
 			}
-			//cube[5][0][2] -> cube[3][0][0]
-			//cube[5][1][2] -> cube[3][0][1]
-			//cube[5][2][2] -> cube[3][0][2]
+			//cube[5][2][0] -> cube[3][2][0]
+			//cube[5][2][1] -> cube[3][2][1]
+			//cube[5][2][2] -> cube[3][2][2]
 			for(int i=0; i<3; i++) {
-				temp[i+3] = cube[3][0][i];
-				cube[3][0][i] = temp[i];
+				temp[i+3] = cube[3][2][i];
+				cube[3][2][i] = temp[i];
 			}
-			//cube[3][0][0] -> cube[4][2][0]
-			//cube[3][0][1] -> cube[4][1][0]
-			//cube[3][0][2] -> cube[4][0][0]
+			//cube[3][2][0] -> cube[4][2][0]
+			//cube[3][2][1] -> cube[4][2][1]
+			//cube[3][2][2] -> cube[4][2][2]
 			for(int i=0; i<3; i++) {
-				temp[i+6] = cube[4][2-i][0];
-				cube[4][2-i][0] = temp[i+3];
+				temp[i+6] = cube[4][2][i];
+				cube[4][2][i] = temp[i+3];
 			}
-			//cube[4][2][0] -> cube[2][2][2]
-			//cube[4][1][0] -> cube[2][2][1]
-			//cube[4][0][0] -> cube[2][2][0]
+			//cube[4][2][0] -> cube[2][2][0]
+			//cube[4][2][1] -> cube[2][2][1]
+			//cube[4][2][2] -> cube[2][2][2]
 			for(int i=0; i<3; i++) {
-				cube[2][2][2-i] = temp[i+6];
+				cube[2][2][i] = temp[i+6];
 			}
 		} else {
 			String temp[] = new String[9];
-			//cube[2][2][2] -> cube[4][2][0]
-			//cube[2][2][1] -> cube[4][1][0]
-			//cube[2][2][0] -> cube[4][0][0]
+			//cube[2][2][0] -> cube[4][2][0]
+			//cube[2][2][1] -> cube[4][2][1]
+			//cube[2][2][2] -> cube[4][2][2]
 			for(int i=0; i<3; i++) {
-				temp[i] = cube[4][2-i][0];
-				cube[4][2-i][0] = cube[2][2][2-i];
+				temp[i] = cube[4][2][i];
+				cube[4][2][i] = cube[2][2][i];
 			}
-			//cube[4][2][0] -> cube[3][0][0]
-			//cube[4][1][0] -> cube[3][0][1]
-			//cube[4][0][0] -> cube[3][0][2]
+			//cube[4][2][0] -> cube[3][2][0]
+			//cube[4][2][1] -> cube[3][2][1]
+			//cube[4][2][2] -> cube[3][2][2]
 			for(int i=0; i<3; i++) {
-				temp[i+3] = cube[3][0][i];
-				cube[3][0][i] = temp[i];
+				temp[i+3] = cube[3][2][i];
+				cube[3][2][i] = temp[i];
 			}
-			//cube[3][0][0] -> cube[5][0][2]
-			//cube[3][0][1] -> cube[5][1][2]
-			//cube[3][0][2] -> cube[5][2][2]
+			//cube[3][2][0] -> cube[5][2][0]
+			//cube[3][2][1] -> cube[5][2][1]
+			//cube[3][2][2] -> cube[5][2][2]
 			for(int i=0; i<3; i++) {
-				temp[i+6] = cube[5][i][2];
-				cube[5][i][2] = temp[i+3];
+				temp[i+6] = cube[5][2][i];
+				cube[5][2][i] = temp[i+3];
 			}
-			//cube[5][0][2] -> cube[2][2][2]
-			//cube[5][1][2] -> cube[2][2][1]
-			//cube[5][2][2] -> cube[2][2][0]
+			//cube[5][2][0] -> cube[2][2][0]
+			//cube[5][2][1] -> cube[2][2][1]
+			//cube[5][2][2] -> cube[2][2][2]
 			for(int i=0; i<3; i++) {
-				cube[2][2][2-i] = temp[i+6];
+				cube[2][2][i] = temp[i+6];
 			}
 		} 
 		// 자체 회전
@@ -210,59 +212,59 @@ public class Main {
 		// '+' 시계방향
 		if(flag) {
 			String temp[] = new String[9];
-			//cube[0][2][0] -> cube[5][2][0]
-			//cube[0][2][1] -> cube[5][2][1]
-			//cube[0][2][2] -> cube[5][2][2]
+			//cube[0][2][0] -> cube[5][0][0]
+			//cube[0][2][1] -> cube[5][1][0]
+			//cube[0][2][2] -> cube[5][2][0]
 			for(int i=0; i<3; i++) {
-				temp[i] = cube[5][2][i];
-				cube[5][2][i] = cube[0][2][i];
+				temp[i] = cube[5][i][0];
+				cube[5][i][0] = cube[0][2][i];
 			}
+			//cube[5][0][0] -> cube[1][0][0]
+			//cube[5][1][0] -> cube[1][0][1]
 			//cube[5][2][0] -> cube[1][0][2]
-			//cube[5][2][1] -> cube[1][0][1]
-			//cube[5][2][2] -> cube[1][0][0]
 			for(int i=0; i<3; i++) {
-				temp[i+3]=cube[1][0][2-i];
-				cube[1][0][2-i] = temp[i];
+				temp[i+3]=cube[1][0][i];
+				cube[1][0][i] = temp[i];
 			}
-			//cube[1][0][2] -> cube[4][2][0]
-			//cube[1][0][1] -> cube[4][2][1]
 			//cube[1][0][0] -> cube[4][2][2]
+			//cube[1][0][1] -> cube[4][1][2]
+			//cube[1][0][2] -> cube[4][0][2]
 			for(int i=0; i<3; i++) {
-				temp[i+6]=cube[4][2][i];
-				cube[1][0][2-i] = temp[i+3];
+				temp[i+6]=cube[4][2-i][2];
+				cube[4][2-i][2] = temp[i+3];
 			}
-			//cube[4][2][0] -> cube[0][2][0]
-			//cube[4][2][1] -> cube[0][2][1]
-			//cube[4][2][2] -> cube[0][2][2]
+			//cube[4][2][2] -> cube[0][2][0]
+			//cube[4][1][2] -> cube[0][2][1]
+			//cube[4][0][2] -> cube[0][2][2]
 			for(int i=0; i<3; i++) {
 				cube[0][2][i] = temp[i+6];
 			}
 		} else {
 			String temp[] = new String[9];
-			//cube[0][2][0] -> cube[4][2][0]
-			//cube[0][2][1] -> cube[4][2][1]
-			//cube[0][2][2] -> cube[4][2][2]
+			//cube[0][2][0] -> cube[4][2][2]
+			//cube[0][2][1] -> cube[4][1][2]
+			//cube[0][2][2] -> cube[4][0][2]
 			for(int i=0; i<3; i++) {
-				temp[i] = cube[4][2][i];
-				cube[4][2][i] = cube[0][2][i];
+				temp[i] = cube[4][2-i][2];
+				cube[4][2-i][2] = cube[0][2][i];
 			}
-			//cube[4][2][0] -> cube[1][0][2]
-			//cube[4][2][1] -> cube[1][0][1]
 			//cube[4][2][2] -> cube[1][0][0]
+			//cube[4][1][2] -> cube[1][0][1]
+			//cube[4][0][2] -> cube[1][0][2]
 			for(int i=0; i<3; i++) {
-				temp[i+3]=cube[1][0][2-i];
-				cube[1][0][2-i] = temp[i];
+				temp[i+3]=cube[1][0][i];
+				cube[1][0][i] = temp[i];
 			}
-			//cube[1][0][0] -> cube[5][2][0]
-			//cube[1][0][1] -> cube[5][2][1]
-			//cube[1][0][2] -> cube[5][2][2]
+			//cube[1][0][0] -> cube[5][0][0]
+			//cube[1][0][1] -> cube[5][1][0]
+			//cube[1][0][2] -> cube[5][2][0]
 			for(int i=0; i<3; i++) {
-				temp[i+6]=cube[5][2][i];
-				cube[5][2][i] = temp[i+3];
+				temp[i+6]=cube[5][i][0];
+				cube[5][i][0] = temp[i+3];
 			}
-			//cube[5][2][0] -> cube[0][2][0]
-			//cube[5][2][1] -> cube[0][2][1]
-			//cube[5][2][2] -> cube[0][2][2]
+			//cube[5][0][0] -> cube[0][2][0]
+			//cube[5][1][0] -> cube[0][2][1]
+			//cube[5][2][0] -> cube[0][2][2]
 			for(int i=0; i<3; i++) {
 				cube[0][2][i] = temp[i+6];
 			}
@@ -274,59 +276,59 @@ public class Main {
 		// '+' 시계방향
 		if(flag) {
 			String temp[] = new String[9];
-			//cube[0][0][0] -> cube[4][0][0]
-			//cube[0][0][1] -> cube[4][0][1]
-			//cube[0][0][2] -> cube[4][0][2]
+			//cube[0][0][0] -> cube[4][2][0]
+			//cube[0][0][1] -> cube[4][1][0]
+			//cube[0][0][2] -> cube[4][0][0]
 			for(int i=0; i<3; i++) {
-				temp[i] = cube[4][0][i];
-				cube[4][0][i] = cube[0][0][i];
+				temp[i] = cube[4][2-i][0];
+				cube[4][2-i][0] = cube[0][0][i];
 			}
-			//cube[4][0][0] -> cube[1][2][2]
-			//cube[4][0][1] -> cube[1][2][1]
-			//cube[4][0][2] -> cube[1][2][0]
+			//cube[4][2][0] -> cube[1][2][2]
+			//cube[4][1][0] -> cube[1][2][1]
+			//cube[4][0][0] -> cube[1][2][0]
 			for(int i=0; i<3; i++) {
 				temp[i+3]=cube[1][2][2-i];
 				cube[1][2][2-i] = temp[i];
 			}
-			//cube[1][2][2] -> cube[5][0][0]
-			//cube[1][2][1] -> cube[5][0][1]
-			//cube[1][2][0] -> cube[5][0][2]
+			//cube[1][2][2] -> cube[5][0][2]
+			//cube[1][2][1] -> cube[5][1][2]
+			//cube[1][2][0] -> cube[5][2][2]
 			for(int i=0; i<3; i++) {
-				temp[i+6]=cube[5][0][i];
-				cube[5][0][i] = temp[i+3];
+				temp[i+6]=cube[5][i][2];
+				cube[5][i][2] = temp[i+3];
 			}
-			//cube[5][0][0] -> cube[0][0][0]
-			//cube[5][0][1] -> cube[0][0][1]
-			//cube[5][0][2] -> cube[0][0][2]
+			//cube[5][0][2] -> cube[0][0][0]
+			//cube[5][1][2] -> cube[0][0][1]
+			//cube[5][2][2] -> cube[0][0][2]
 			for(int i=0; i<3; i++) {
 				cube[0][0][i] = temp[i+6];
 			}
 		} else {
 			String temp[] = new String[9];
-			//cube[0][0][0] -> cube[5][0][0]
-			//cube[0][1][0] -> cube[5][0][1]
-			//cube[0][2][0] -> cube[5][0][2]
+			//cube[0][0][0] -> cube[5][0][2]
+			//cube[0][0][1] -> cube[5][1][2]
+			//cube[0][0][2] -> cube[5][2][2]
 			for(int i=0; i<3; i++) {
-				temp[i] = cube[5][0][i];
-				cube[5][0][i] = cube[0][i][0];
+				temp[i] = cube[5][i][2];
+				cube[5][i][2] = cube[0][0][i];
 			}
-			//cube[5][0][0] -> cube[1][2][2]
-			//cube[5][0][1] -> cube[1][2][1]
-			//cube[5][0][2] -> cube[1][2][0]
+			//cube[5][0][2] -> cube[1][2][2]
+			//cube[5][1][2] -> cube[1][2][1]
+			//cube[5][2][2] -> cube[1][2][0]
 			for(int i=0; i<3; i++) {
 				temp[i+3]=cube[1][2][2-i];
 				cube[1][2][2-i] = temp[i];
 			}
-			//cube[1][2][2] -> cube[4][0][0]
-			//cube[1][2][1] -> cube[4][0][1]
-			//cube[1][2][0] -> cube[4][0][2]
+			//cube[1][2][2] -> cube[4][2][0]
+			//cube[1][2][1] -> cube[4][1][0]
+			//cube[1][2][0] -> cube[4][0][0]
 			for(int i=0; i<3; i++) {
-				temp[i+6]=cube[4][0][i];
-				cube[4][0][i] = temp[i+3];
+				temp[i+6]=cube[4][2-i][0];
+				cube[4][2-i][0] = temp[i+3];
 			}
-			//cube[4][0][0] -> cube[0][0][0]
-			//cube[4][0][1] -> cube[0][0][1]
-			//cube[4][0][2] -> cube[0][0][2]
+			//cube[4][2][0] -> cube[0][0][0]
+			//cube[4][1][0] -> cube[0][0][1]
+			//cube[4][0][0] -> cube[0][0][2]
 			for(int i=0; i<3; i++) {
 				cube[0][0][i] = temp[i+6];
 			}
@@ -352,31 +354,31 @@ public class Main {
 				temp[i+3]=cube[1][i][0];
 				cube[1][i][0] = temp[i];
 			}
-			//cube[1][0][0] -> cube[3][0][0]
-			//cube[1][1][0] -> cube[3][1][0]
-			//cube[1][2][0] -> cube[3][2][0]
+			//cube[1][0][0] -> cube[3][2][2]
+			//cube[1][1][0] -> cube[3][1][2]
+			//cube[1][2][0] -> cube[3][0][2]
 			for(int i=0; i<3; i++) {
-				temp[i+6]=cube[3][i][0];
-				cube[3][i][0] = temp[i+3];
+				temp[i+6]=cube[3][2-i][2];
+				cube[3][2-i][2] = temp[i+3];
 			}
-			//cube[3][0][0] -> cube[0][0][0]
-			//cube[3][1][0] -> cube[0][1][0]
-			//cube[3][2][0] -> cube[0][2][0]
+			//cube[3][2][2] -> cube[0][0][0]
+			//cube[3][1][2] -> cube[0][1][0]
+			//cube[3][0][2] -> cube[0][2][0]
 			for(int i=0; i<3; i++) {
 				cube[0][i][0] = temp[i+6];
 			}
 		} else {
 			String temp[] = new String[9];
-			//cube[0][0][0] -> cube[3][0][0]
-			//cube[0][1][0] -> cube[3][1][0]
-			//cube[0][2][0] -> cube[3][2][0]
+			//cube[0][0][0] -> cube[3][2][2]
+			//cube[0][1][0] -> cube[3][1][2]
+			//cube[0][2][0] -> cube[3][0][2]
 			for(int i=0; i<3; i++) {
-				temp[i] = cube[3][i][0];
-				cube[3][i][0] = cube[0][i][0];
+				temp[i] = cube[3][2-i][2];
+				cube[3][2-i][2] = cube[0][i][0];
 			}
-			//cube[3][0][0] -> cube[1][0][0]
-			//cube[3][1][0] -> cube[1][1][0]
-			//cube[3][2][0] -> cube[1][2][0]
+			//cube[3][2][2] -> cube[1][0][0]
+			//cube[3][1][2] -> cube[1][1][0]
+			//cube[3][0][2] -> cube[1][2][0]
 			for(int i=0; i<3; i++) {
 				temp[i+3]=cube[1][i][0];
 				cube[1][i][0] = temp[i];
@@ -402,16 +404,16 @@ public class Main {
 		// '+' 시계방향
 		if(flag) {
 			String temp[] = new String[9];
-			//cube[0][0][2] -> cube[3][0][2]
-			//cube[0][1][2] -> cube[3][1][2]
-			//cube[0][2][2] -> cube[3][2][2]
+			//cube[0][0][2] -> cube[3][2][0]
+			//cube[0][1][2] -> cube[3][1][0]
+			//cube[0][2][2] -> cube[3][0][0]
 			for(int i=0; i<3; i++) {
-				temp[i] = cube[3][i][2];
-				cube[3][i][2] = cube[0][i][2];
+				temp[i] = cube[3][2-i][0];
+				cube[3][2-i][0] = cube[0][i][2];
 			}
-			//cube[3][0][2] -> cube[1][0][2]
-			//cube[3][1][2] -> cube[1][1][2]
-			//cube[3][2][2] -> cube[1][2][2]
+			//cube[3][2][0] -> cube[1][0][2]
+			//cube[3][1][0] -> cube[1][1][2]
+			//cube[3][0][0] -> cube[1][2][2]
 			for(int i=0; i<3; i++) {
 				temp[i+3]=cube[1][i][2];
 				cube[1][i][2] = temp[i];
@@ -435,7 +437,7 @@ public class Main {
 			//cube[0][1][2] -> cube[2][1][2]
 			//cube[0][2][2] -> cube[2][2][2]
 			for(int i=0; i<3; i++) {
-				temp[i] = cube[3][i][2];
+				temp[i] = cube[2][i][2];
 				cube[2][i][2] = cube[0][i][2];
 			}
 			//cube[2][0][2] -> cube[1][0][2]
@@ -445,16 +447,16 @@ public class Main {
 				temp[i+3]=cube[1][i][2];
 				cube[1][i][2] = temp[i];
 			}
-			//cube[1][0][2] -> cube[3][0][2]
-			//cube[1][1][2] -> cube[3][1][2]
-			//cube[1][2][2] -> cube[3][2][2]
+			//cube[1][0][2] -> cube[3][2][0]
+			//cube[1][1][2] -> cube[3][1][0]
+			//cube[1][2][2] -> cube[3][0][0]
 			for(int i=0; i<3; i++) {
-				temp[i+6]=cube[3][i][2];
-				cube[3][i][2] = temp[i+3];
+				temp[i+6]=cube[3][2-i][0];
+				cube[3][2-i][0] = temp[i+3];
 			}
-			//cube[3][0][2] -> cube[0][0][2]
-			//cube[3][1][2] -> cube[0][1][2]
-			//cube[3][2][2] -> cube[0][2][2]
+			//cube[3][2][0] -> cube[0][0][2]
+			//cube[3][1][0] -> cube[0][1][2]
+			//cube[3][0][0] -> cube[0][2][2]
 			for(int i=0; i<3; i++) {
 				cube[0][i][2] = temp[i+6];
 			}

@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * 2018 하반기 삼성전자 DS 
@@ -22,8 +20,13 @@ public class MoveingPeople
 {
 	static Integer[][] worldMap;
 	static int N, L, R;
-	static Integer[] x = {1, -1, 0, 0};
-	static Integer[] y = {0, 0, 1, -1};
+	static Integer[] dx = {1, -1, 0, 0};
+	static Integer[] dy = {0, 0, 1, -1};
+	
+	// 정답을 본 후 수정. 1. dfs의 시작
+	static boolean visited[][];
+	
+	
     public static void main( String[] args ) throws IOException
     {
     	int res = 0;
@@ -36,38 +39,64 @@ public class MoveingPeople
         	String[] peopleCnt = br.readLine().split(" ");
         	for(int j=0; j<N; j++) worldMap[i][j] = Integer.parseInt(peopleCnt[j]);
         }
-        //연합의 모음
+       //정답지 보고 수정 2. visit 초기화 하고 check() 함수를 호출
         while(true) {
-        	printmap();
-        	ArrayList<Integer> unionList = new ArrayList<Integer>();
-	        for(int i=0; i<N; i++) {
-	        	for(int j=0; j<N; j++) {
-	        		for(int z=0; z<4; z++){
-	        			if(i+x[z]>=0 && j+y[z]>=0 && i+x[z]<N && j+y[z]<N) {
-	        				int diff = diffNumber(worldMap[i][j], worldMap[i+x[z]][j+y[z]]);
-		        			if(diff>= L && diff <= R) {
-		        					if(checkExist(unionList, (i*N+j))) unionList.add(i*N+j);
-			        				if(checkExist(unionList, ((i+x[z])*N+j+y[z]))) unionList.add((i+x[z])*N+j+y[z]);
-		        			}
-	        			}
-	        		}
-	        	}
-	        }
-	        	
-        	for(int i=0; i<unionList.size();i++) System.out.print(unionList.get(i)+" ");
-	        System.out.println();
-	        System.out.println();
-	        
-        	if(unionList.size()>1) {
-  	          res++;
-  	          movingPeople(unionList);
-  	          printmap();
-  	        } else break;	
+        	visited = new boolean[N][N]; //방문 초기화
+        	if(!check()) {
+        		res++;
+        	} else {
+        		break;
+        	}
         }
         System.out.println(res);
     }
     
-    private static void printmap() {
+    // 정답지 보고 수정 3. 인구 이동 필요한지 전체 지도를 스캔
+    private static boolean check() {
+		ArrayList<Integer> union;
+    	boolean isDone = true;
+        for(int i=0; i<N; i++) {
+        	for(int j=0; j<N; j++) {
+        		// 정답지 보고 수정 4. 방문하지 않은 경우
+        		if(!visited[i][j]){
+        			union = new ArrayList<Integer>();
+        			union.add(i*N + j);
+        			// sum - 리스트에 저장된 값의 합.
+        			int sum = dfs(i, j, union, 0);
+        			if(union.size()>1) { //리스트의 크기가 1이상이 경우 (인구 이동이 있을 경우)
+        				movingPeople(sum, union);
+        				isDone=false;
+        			}
+        		}
+        	}
+        }
+		return isDone;
+	}
+
+    //정답지 보고 수정 5. dfs 함수
+	private static int dfs(int x, int y, ArrayList<Integer> union, int sum) {
+		// 방문
+		visited[x][y] = true;
+		sum = worldMap[x][y];
+		
+		for(int i=0; i<4; i++){
+			int next_x = x+dx[i];
+			int next_y = y+dy[i];
+			
+			if(next_x < 0 || next_x >=N ||next_y < 0 || next_y >=N) continue;
+			if(!visited[next_x][next_y]) {
+				int diff = diffNumber(worldMap[x][y], worldMap[next_x][next_y]);
+				if(diff >= L && diff <= R) {
+					// 나라가 연합에 아직 가입되지않을때
+					union.add(next_x*N + next_y);
+					sum+=dfs(next_x, next_y, union, sum);
+    			}
+			}
+		}
+		return sum;
+	}
+
+	private static void printmap() {
 	 for(int i=0; i<N; i++){
         	for(int j=0; j<N;j++) {
         		System.out.print(worldMap[i][j]+" ");
@@ -76,28 +105,22 @@ public class MoveingPeople
         }
 	 System.out.println();
     }
-    
-   private static boolean checkExist(ArrayList<Integer> unionList, int n) {
-	  for(int i=0; i<unionList.size(); i++) {
-		  if(n==unionList.get(i)) return false;
-	  } 
-	return true;
-   }
-   
-   public static void movingPeople(ArrayList<Integer> unionList) {
-	   int unionPeople = calUnionPeople(unionList);
-	   for(int i=0; i<unionList.size(); i++) {
-		   int point = unionList.get(i);
+
+   //평균값으로 map 갱신
+   public static void movingPeople(int sum, ArrayList<Integer> union) {
+	   int unionPeople = sum / union.size();
+	   for(int i=0; i<union.size(); i++) {
+		   int point = union.get(i);
 		   worldMap[point/N][point%N] = unionPeople;
 	   }
    } 
     
-    // 연합 수
-    public static int calUnionPeople(ArrayList<Integer> unionList) {
+  // 연합 수
+    public static int calUnionPeople(ArrayList<Integer> union) {
     	int totPeople = 0;
-    	int unionCnt = unionList.size();
+    	int unionCnt = union.size();
     	for(int i=0; i<unionCnt;i++) {
-    		int point = unionList.get(i);
+    		int point = union.get(i);
     		totPeople +=worldMap[point/N][point%N];
     	}
     	return totPeople /unionCnt;

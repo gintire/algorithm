@@ -19,12 +19,11 @@ public class SingleMap {
 		}
 	}
 	
-	//U : Èò(w), D : ³ë(y), F : »¡(r), B : ¿À·»Áö(o), L : ÃÊ·Ï(g), R : ÆÄ¶û (b)
+	//U : ï¿½ï¿½(w), D : ï¿½ï¿½(y), F : ï¿½ï¿½(r), B : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(o), L : ï¿½Ê·ï¿½(g), R : ï¿½Ä¶ï¿½ (b)
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int cases = Integer.parseInt(br.readLine());
 		for (int i=0 ; i<cases; i++) {
-			int n = Integer.parseInt(br.readLine());
 			String input = br.readLine();
 			solve(input);
 		}
@@ -80,7 +79,7 @@ public class SingleMap {
 	private static void turnR(boolean clockway) {
 		String[] temp = new String[3];
 		temp[0] = U[2]; temp[1] = U[5]; temp[2] = U[8];		
-		//½Ã°è¹æÇâ
+		//ï¿½Ã°ï¿½ï¿½ï¿½ï¿½
 		if(clockway) {
 			U[2] = F[2]; U[5] = F[5]; U[8] = F[8];
 			F[2] = D[2]; F[5] = D[5]; F[8] = D[8];
@@ -93,14 +92,14 @@ public class SingleMap {
 			F[2] = temp[0]; F[5] = temp[1]; F[8] = temp[2];
 		}
 		
-		// ÀüÃ¼ È¸Àü
+		// ï¿½ï¿½Ã¼ È¸ï¿½ï¿½
 		turnPlate(5, clockway);
 	}
 
 	private static void turnL(boolean clockway) {
 		String[] temp = new String[3];
 		temp[0] = U[0]; temp[1] = U[3]; temp[2] = U[6];		
-		//½Ã°è¹æÇâ
+		//ï¿½Ã°ï¿½ï¿½ï¿½ï¿½
 		if(clockway) {
 			U[0] = B[8]; U[3] = B[5]; U[6] = B[2];
 			B[8] = D[0]; B[5] = D[3]; B[2] = D[6];
@@ -113,14 +112,14 @@ public class SingleMap {
 			B[8] = temp[0]; B[5] = temp[1]; B[2] = temp[2];
 		}
 		
-		// ÀüÃ¼ È¸Àü
+		// ï¿½ï¿½Ã¼ È¸ï¿½ï¿½
 		turnPlate(4, clockway);	
 	}
 
 	private static void turnB(boolean clockway) {
 		String[] temp = new String[3];
 		temp[0] = U[0]; temp[1] = U[1]; temp[2] = U[2];
-		//½Ã°è¹æÇâ
+		//ï¿½Ã°ï¿½ï¿½ï¿½ï¿½
 		if(clockway) {
 			U[0] = R[2]; U[1] = R[5]; U[2] = R[8];
 			R[2] = D[8]; R[5] = D[7]; R[8] = D[6];
@@ -133,14 +132,14 @@ public class SingleMap {
 			R[2] = temp[0]; R[5] = temp[1]; R[8] = temp[2];
 		}
 		
-		// ÀüÃ¼ È¸Àü
+		// ï¿½ï¿½Ã¼ È¸ï¿½ï¿½
 		turnPlate(3, clockway);
 	}
 
 	private static void turnF(boolean clockway) {
 		String[] temp = new String[3];
 		temp[0] = U[6]; temp[1] = U[7]; temp[2] = U[8];
-		//½Ã°è¹æÇâ
+		//ï¿½Ã°ï¿½ï¿½ï¿½ï¿½
 		if(clockway) {
 			U[8] = L[2]; U[7] = L[5]; U[6] = L[8];
 			L[2] = D[0]; L[5] = D[1]; L[8] = D[2];
@@ -153,14 +152,14 @@ public class SingleMap {
 			L[2] = temp[2]; L[5] = temp[1]; L[8] = temp[0];
 		}
 		
-		// ÀüÃ¼ È¸Àü
+		// ï¿½ï¿½Ã¼ È¸ï¿½ï¿½
 		turnPlate(2, clockway);
 	}
 
 	private static void turnD(boolean clockway) {
 		String[] temp = new String[3];
 		temp[0] = F[6]; temp[1] = F[7]; temp[2] = F[8];
-		//½Ã°è¹æÇâ
+		//ï¿½Ã°ï¿½ï¿½ï¿½ï¿½
 		if(clockway) {
 			F[6] = L[6]; F[7] = L[7]; F[8] = L[8];
 			L[6] = B[6]; L[7] = B[7]; L[8] = B[8];
@@ -174,14 +173,14 @@ public class SingleMap {
 			
 		}
 		
-		// ÀüÃ¼ È¸Àü
+		// ï¿½ï¿½Ã¼ È¸ï¿½ï¿½
 		turnPlate(1, clockway);
 	}
 
 	private static void turnU(boolean clockway) {
 		String[] temp = new String[3];
 		temp[0] = F[0]; temp[1] = F[1]; temp[2] = F[2];
-		//½Ã°è¹æÇâ
+		//ï¿½Ã°ï¿½ï¿½ï¿½ï¿½
 		if(clockway) {
 			F[0] = R[0]; F[1] = R[1]; F[2] = R[2];
 			R[0] = B[0]; R[1] = B[1]; R[2] = B[2];
@@ -194,11 +193,11 @@ public class SingleMap {
 			R[0] = temp[0]; R[1] = temp[1]; R[2] = temp[2];
 		}
 		
-		// ÀüÃ¼ È¸Àü
+		// ï¿½ï¿½Ã¼ È¸ï¿½ï¿½
 		turnPlate(0, clockway);
 	}		
 	
-	//ÁÂÇ¥Æò¸é, 
+	//ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½, 
 	private static void turnPlate(int idx, boolean clockway) {
 		Map<Integer, String[]> cube = new HashMap<Integer, String[]>();
 		cube.put(0, U);cube.put(1, D);cube.put(2, F);
@@ -206,7 +205,7 @@ public class SingleMap {
 		String[] temp = new String[9];
 		for(int i=0; i<9; i++) 
 			temp[i] = cube.get(idx)[i];
-		// ½Ã°è ¹æÇâ È¸Àü
+		// ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
 		if(clockway) {
 			cube.get(idx)[2] = temp[0]; cube.get(idx)[0] = temp[6]; cube.get(idx)[3] = temp[7];
 			cube.get(idx)[5] = temp[1]; cube.get(idx)[1] = temp[3]; cube.get(idx)[4] = temp[4];

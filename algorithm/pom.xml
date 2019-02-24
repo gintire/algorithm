@@ -12,5 +12,6 @@
     <module>chicken_delivery</module>
     <module>robot_cleaner</module>
     <module>laboratory</module>
+    <module>Tree_Investment</module>
   </modules>
 </project>

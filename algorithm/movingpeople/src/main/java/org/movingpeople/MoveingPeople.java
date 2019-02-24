@@ -23,7 +23,7 @@ public class MoveingPeople
 	static Integer[] dx = {1, -1, 0, 0};
 	static Integer[] dy = {0, 0, 1, -1};
 	
-	// 정답을 본 후 수정. 1. dfs의 시작
+	// 정답을 본 후 수정 1. 방문한 도시
 	static boolean visited[][];
 	
 	
@@ -87,7 +87,6 @@ public class MoveingPeople
 			if(!visited[next_x][next_y]) {
 				int diff = diffNumber(worldMap[x][y], worldMap[next_x][next_y]);
 				if(diff >= L && diff <= R) {
-					// 나라가 연합에 아직 가입되지않을때
 					union.add(next_x*N + next_y);
 					sum+=dfs(next_x, next_y, union, sum);
     			}

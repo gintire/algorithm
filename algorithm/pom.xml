@@ -9,5 +9,8 @@
   	<module>fibonacci</module>
   	<module>Cubing</module>
     <module>movingpeople</module>
+    <module>chicken_delivery</module>
+    <module>robot_cleaner</module>
+    <module>laboratory</module>
   </modules>
 </project>

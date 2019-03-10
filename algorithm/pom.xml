@@ -13,5 +13,6 @@
     <module>robot_cleaner</module>
     <module>laboratory</module>
     <module>Tree_Investment</module>
+    <module>slope</module>
   </modules>
 </project>

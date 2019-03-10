@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Collections;
 
 /**
  * 백준 No 15684 사다리 조작
@@ -23,7 +24,7 @@ public class Main {
     private static int H;
     public static boolean[][] ladder;
     public static boolean[][] visited;
-    public static int minValue;
+    public static int minValue = Integer.MAX_VALUE;
 
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -31,117 +32,46 @@ public class Main {
         N = Integer.parseInt(NMH[0]); M = Integer.parseInt(NMH[1]); H = Integer.parseInt(NMH[2]);
 
         ladder = new boolean[H+1][N+1];
-        //visited = new boolean[H+1][N+1];
         //초기화
         for(int i=1; i<=M; i++) {
             String[] ij = br.readLine().split(" ");
             ladder[Integer.parseInt(ij[0])][Integer.parseInt(ij[1])] = true;
-            //visited[Integer.parseInt(ij[0])][Integer.parseInt(ij[1])] = true;
         }
-        int res = 0;
-        for(int i=1; i<=N; i++) {
-            visited = new boolean[H+1][N+1];
-            minValue = N*M;
-            doLadder(i, 1, i, 0);
-            System.out.println(minValue);
-            System.out.println();
-            System.out.println();
+        solve(0, 1, 1);
+        if(minValue > 3) System.out.println("-1");
+        else System.out.println(minValue);
+    }
 
-            res += minValue;
+    public static void solve(int cnt, int v, int p){
+        if(cnt>=minValue) return;
+        if(doLadder()) {
+            minValue = cnt;
+            return;
         }
-        System.out.println("정답 : "+res);
+        if(cnt == 3) return;
+        for(int i=p;i<=H;i++) {
+            v = 1;
+            for(int j=v; j<N; j++) {
+                if(ladder[i][j]) {
+                    j++;
+                    continue;
+                }
+                ladder[i][j] = true;
+                solve(cnt+1, v+2, i);
+                ladder[i][j] = false;
+            }
+        }
     }
     //dfs (세로줄 n, 가로줄 m)
-    public static int doLadder(int v, int p, int initV, int addedLadder) {
-        //1. 가로선이 없는 경우
-        if(M==0) return 0;
-        //2. 사다리를 다 탔을 경우
-        if(p>H) {
-            System.out.println("사다리 마지막: " + v);
-            if(v == initV) {
-                System.out.println("최솟값 : "+minValue + "  더해진 사다리 수 : "+addedLadder);
-                minValue = Math.min(minValue, addedLadder);
-            }
-            return minValue;
-        }
-        //3. 방문하지 않은 경우
-        //if(!visited[p][v]) {
-           //4. 사다리가 없는 경우 ( 해당 세로줄의 옆줄도 확인해줘야함)
-            if(!ladder[p][v]) {
-                //5. 사다리는 v - v+1 로 연결되므로 왼쪽 사다리유무도 확인
-                if(v-1 > 0) {
-                    // 사다리 없는 경우
-                     if(!ladder[p][v-1]) {
-                         // 10. [사다리 추가] 왼쪽으로 움직임
-                         visited[p][v] = true;
-                         ladder[p][v-1]= true;
-                         addedLadder+=1;
-                         doLadder(v-1, p, initV, addedLadder);
-                         addedLadder-=1;
-                         visited[p][v] = false;
-                         ladder[p][v-1]= false;
-                         // 11. [사다리 추가] 오른쪽으로 움직임
-                         if(v+1 <= N ) {
-                             if(!ladder[p][v+1]) {
-                                 visited[p][v] = true;
-                                 ladder[p][v] = true;
-                                 addedLadder+=1;
-                                 doLadder(v + 1, p, initV, addedLadder);
-                                 addedLadder-=1;
-                                 visited[p][v] = false;
-                                 ladder[p][v] = false;
-                             }
-                         }
-                         // 아래로 이동
-                         doLadder(v, p + 1, initV, addedLadder);
-                     }
-                     //6. 현재 세로줄엔 사다리 없는데 옆줄로 연결되있음
-                     else {
-                         if(!visited[p][v-1]) {
-                             visited[p][v] = true;
-                             doLadder(v - 1, p, initV, addedLadder);
-                         }
-                         // 7. 이미 사다리를 건넜으므로 아래로 움직임
-                         else {
-                             doLadder(v, p+1, initV, addedLadder);
-                         }
-                     }
-                }
-                else {
-                    if(!ladder[p][v+1]) {
-                        visited[p][v] = true;
-                        ladder[p][v] = true;
-                        addedLadder+=1;
-                        doLadder(v + 1, p, initV, addedLadder);
-                        addedLadder-=1;
-                        visited[p][v] = false;
-                        ladder[p][v] = false;
-                    }
-                    doLadder(v, p+1, initV, addedLadder);
-                }
-            }
-            //8. 사다리가 있는 경우
-            else {
-                if(!visited[p][v+1]) {
-                    visited[p][v] = true;
-                    doLadder(v+1, p, initV, addedLadder);
-                }
-                //9. 이미 사다리를 건너온 경우 아래로 움직임
-                else {
-                    doLadder(v, p+1, initV, addedLadder);
-                }
-            //}
-        }
-
-        return minValue;
-    }
-    //사다리 추가 (가로줄 a, 세로줄 b)
-    public static void addLadder (int a, int b) {
-        ladder[a][b] = true;
-        visited[a][b] = true;
-    }
-    //사다리 삭제 (가로줄 a, 세로줄 b)
-    public static void delLadder (int a, int b) {
-        ladder[a][b] = false;
+    public static boolean doLadder() {
+       for(int i=1; i<=N; i++) {
+           int v = i;
+           for(int j=1; j<=H; j++) {
+               if(ladder[j][v]) v++;
+               else if(ladder[j][v-1]) v--;
+           }
+           if(i != v) return false;
+       }
+       return true;
     }
 }

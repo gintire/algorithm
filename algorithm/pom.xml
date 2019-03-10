@@ -14,5 +14,6 @@
     <module>laboratory</module>
     <module>Tree_Investment</module>
     <module>slope</module>
+    <module>ladderControl</module>
   </modules>
 </project>

@@ -34,9 +34,9 @@ public class Main {
 				map[i][j] = Integer.parseInt(temp[j]);
 			}
 		}
-		//System.out.println("횡으로 이동 : "+ solve());
+		System.out.println("횡으로 이동 : "+ solve());
 		System.out.println("종으로 이동 : "+ solve2());
-		//System.out.println(solve()+solve2());
+		System.out.println(solve()+solve2());
 	}
 	//2. 행, 열 방향으로 순회
 	public static int solve() {

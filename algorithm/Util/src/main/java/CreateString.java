@@ -7,7 +7,7 @@ public class CreateString {
 	
 	public static void main(String[] args) {
 		try {
-			getString(100, 100);
+			getString(2000, 2000);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

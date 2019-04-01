@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Comparator;
 
 /*
 사용하는 클래스명이 Solution 이어야 하므로, 가급적 Solution.java 를 사용할 것을 권장합니다.
@@ -18,9 +17,10 @@ class Main
 	static int[] dy = {0, 1};
 	static int N;
 	static int M;
-	static String[][] map;
-	static String[][] visited;
+	static char[][] map = new char[2002][2002];
+	static String[][] visited = new String[2002][2002];
 	static String restStr;
+	static StringBuilder sb = new StringBuilder();
 	
 	public static void main(String args[]) throws Exception
 	{
@@ -49,79 +49,44 @@ class Main
 			restStr = "";
 			String[] NM = br.readLine().split(" ");
 			N = Integer.parseInt(NM[0]); M = Integer.parseInt(NM[1]);
-			map = new String[N+1][M+1];
-			visited = new String[N+1][M+1];
-
-			for (int i=0; i<N; i++) {
-				String line = br.readLine();
-				for(int j=0; j<M; j++) {
-					map[i][j] = line.substring(j, j+1);
+			//map = new String[N+2][M+2];
+			//visited = new String[N+2][M+2];
+			for (int i=0; i<=N+1; i++) {
+				for(int j=0; j<=M+1; j++) {
+					visited[i][j] = "z";
 				}
 			}
-			print();
+			for (int i=1; i<=N; i++) {
+				String line = br.readLine();
+				for(int j=1; j<=M; j++) {
+					map[i][j] = line.charAt(j-1);
+				}
+			}
+			visited[1][1] = String.valueOf(map[1][1]);
+			
 			Instant start = Instant.now();
-			getNameList(0, 0, "");
+			getNameList();
 			Instant stop = Instant.now();
 			Duration d1 = Duration.between(start, stop);
-			System.out.println("#"+test_case+" "+visited[N-1][M-1]);
+			System.out.println("#"+test_case+" "+visited[N][M]);
 			System.out.println("걸린 시간 : " + d1.getNano());
-			print();
 		}
 	}
-	private static void getNameList(int x, int y, String str) {
-		int next_x;
-		int next_y;
-		if(x >= N || y >= M) {
-			return;
-		} else {
-			System.out.println("["+x+", "+y+"] : "+str+" + "+map[x][y]);
-			str += map[x][y];
-			if(x == N-1 && y==M-1) {
-				if(restStr.equals("")) restStr = str;
-				else if (restStr.compareTo(str) >= 0) {
-					restStr = str;
+	//bfs
+	private static void getNameList() {
+		for(int x=1; x<N+1; x++) {
+			for(int y=1; y<M+1; y++) {
+				sb.setLength(0);
+				if(x==1 && y==1) continue;
+				if(visited[x-1][y].compareTo(visited[x][y-1]) <= 0) {
+					sb.append(visited[x-1][y]);
 				}
-			} 
-		}
-		for(int i=0; i<2; i++) {
-			next_x = x+dx[i];
-			next_y = y+dy[i];
-			if(visited[next_x][next_y]==null) {
-				visited[next_x][next_y] = str+map[next_x][next_y];
-				getNameList(next_x, next_y, str);
-			} else {
-				if(visited[next_x][next_y].compareTo(str + map[next_x][next_y]) <0) {
-					break;
-				} else {
-					visited[next_x][next_y] = str + map[next_x][next_y];
-					getNameList(next_x, next_y, str);
+				else {
+					sb.append(visited[x][y-1]);
 				}
+				sb.append(map[x][y]);
+				visited[x][y] = sb.toString();
 			}
 		}
-	}
-	private static void calc (int next_x, int next_y, String str) {
-		if(restStr != "") {
-			if(restStr.compareTo(str+map[next_x][next_y]) <= 0) {
-				//System.out.println("!!!!!!!!!!!!!!!!!!work!!!!!!!!!!!!!!!!!!!" + restStr.compareTo(str+map[next_x][next_y]));
-				return;
-			} else {
-				getNameList(next_x, next_y, str);
-			}  
-		} else {
-			getNameList(next_x, next_y, str);
-		}
-	}
-	private static void print() {
-		for(int i=0; i<N; i++) {
-			for(int j=0; j<M; j++) {
-				System.out.print(visited[i][j]+" ");
-			}
-			System.out.println();
-		}
-	}
-}
-class ComparatorAlphbet implements Comparator<String> {
-	public int compare(String o1, String o2) {
-		return o1.compareTo(o2);
 	}
 }

@@ -15,5 +15,7 @@
     <module>Tree_Investment</module>
     <module>slope</module>
     <module>ladderControl</module>
+    <module>make_jonggu_daughter_name</module>
+    <module>Util</module>
   </modules>
 </project>

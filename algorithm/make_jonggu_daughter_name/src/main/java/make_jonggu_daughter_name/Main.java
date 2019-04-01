@@ -19,6 +19,7 @@ class Main
 	static int N;
 	static int M;
 	static String[][] map;
+	static String[][] visited;
 	static String restStr;
 	
 	public static void main(String args[]) throws Exception
@@ -43,42 +44,33 @@ class Main
 		여러 개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
 		*/
 		
-		//StringBuffer sb = new StringBuffer();
 		for(int test_case = 1; test_case <= T; test_case++)
 		{
 			restStr = "";
 			String[] NM = br.readLine().split(" ");
 			N = Integer.parseInt(NM[0]); M = Integer.parseInt(NM[1]);
 			map = new String[N+1][M+1];
-			
-			for (int i=0; i<=N; i++) {
-				for(int j=0; j<=M; j++) {
-					map[i][j]= "z";
-				}
-			}
-			
+			visited = new String[N+1][M+1];
+
 			for (int i=0; i<N; i++) {
 				String line = br.readLine();
-				//StringTokenizer str = new StringTokenizer(line, "");
 				for(int j=0; j<M; j++) {
 					map[i][j] = line.substring(j, j+1);
-					//map[i] = line.split("");
 				}
 			}
+			print();
 			Instant start = Instant.now();
 			getNameList(0, 0, "");
 			Instant stop = Instant.now();
 			Duration d1 = Duration.between(start, stop);
-			System.out.println(d1.getSeconds());
-			//Arrays.sort(nameList, new ComparatorAlphbet());
-			System.out.println("#"+test_case+" "+restStr);
-			//sb.append("#"+test_case+" "+restStr).append("\n");
+			System.out.println("#"+test_case+" "+visited[N-1][M-1]);
+			System.out.println("걸린 시간 : " + d1.getNano());
+			print();
 		}
-		
-		//System.out.println(sb.toString());
-		
 	}
 	private static void getNameList(int x, int y, String str) {
+		int next_x;
+		int next_y;
 		if(x >= N || y >= M) {
 			return;
 		} else {
@@ -91,17 +83,19 @@ class Main
 				}
 			} 
 		}
-		if(x+1 <= N && y+1 <= M){
-			// 오른쪽이 작을 때
-			if(map[x+1][y].compareTo(map[x][y+1]) < 0) {
-				calc(x+1, y, str);
-			} 
-			//아래가 작을 때
-			else if (map[x+1][y].compareTo(map[x][y+1]) > 0) {
-				calc(x, y+1, str);
+		for(int i=0; i<2; i++) {
+			next_x = x+dx[i];
+			next_y = y+dy[i];
+			if(visited[next_x][next_y]==null) {
+				visited[next_x][next_y] = str+map[next_x][next_y];
+				getNameList(next_x, next_y, str);
 			} else {
-				calc(x+1, y, str);
-				calc(x, y+1, str);
+				if(visited[next_x][next_y].compareTo(str + map[next_x][next_y]) <0) {
+					break;
+				} else {
+					visited[next_x][next_y] = str + map[next_x][next_y];
+					getNameList(next_x, next_y, str);
+				}
 			}
 		}
 	}
@@ -115,6 +109,14 @@ class Main
 			}  
 		} else {
 			getNameList(next_x, next_y, str);
+		}
+	}
+	private static void print() {
+		for(int i=0; i<N; i++) {
+			for(int j=0; j<M; j++) {
+				System.out.print(visited[i][j]+" ");
+			}
+			System.out.println();
 		}
 	}
 }

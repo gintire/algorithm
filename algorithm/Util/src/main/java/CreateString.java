@@ -7,7 +7,7 @@ public class CreateString {
 	
 	public static void main(String[] args) {
 		try {
-			getString(500, 500);
+			getString(100, 100);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -25,7 +25,7 @@ public class CreateString {
 					// a-z
 					sb.append((char) ((int) (rnd.nextInt(26)) + 97));
 				}
-				fw.write(sb.toString()+"\n");
+				fw.write(sb.toString()+"\r\n");
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

@@ -17,5 +17,6 @@
     <module>ladderControl</module>
     <module>make_jonggu_daughter_name</module>
     <module>Util</module>
+    <module>redgreencolorweakness</module>
   </modules>
 </project>

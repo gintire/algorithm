@@ -13,12 +13,10 @@ import java.time.Instant;
 
 class Main
 {
-	static int[] dx = {1, 0};
-	static int[] dy = {0, 1};
 	static int N;
 	static int M;
-	static char[][] map = new char[2002][2002];
-	static String[][] visited = new String[2002][2002];
+	static char[][] map;
+	static String[][] visited;
 	static String restStr;
 	static StringBuilder sb = new StringBuilder();
 	
@@ -49,8 +47,8 @@ class Main
 			restStr = "";
 			String[] NM = br.readLine().split(" ");
 			N = Integer.parseInt(NM[0]); M = Integer.parseInt(NM[1]);
-			//map = new String[N+2][M+2];
-			//visited = new String[N+2][M+2];
+			map = new char[N+2][M+2];
+			visited = new String[N+2][M+2];
 			for (int i=0; i<=N+1; i++) {
 				for(int j=0; j<=M+1; j++) {
 					visited[i][j] = "z";
@@ -85,7 +83,8 @@ class Main
 					sb.append(visited[x][y-1]);
 				}
 				sb.append(map[x][y]);
-				visited[x][y] = sb.toString();
+				//sb.replace(0, sb.length(), visited[x][y]);
+				visited[x][y]= sb.toString();
 			}
 		}
 	}

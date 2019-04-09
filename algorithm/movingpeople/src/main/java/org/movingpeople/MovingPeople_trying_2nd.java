@@ -39,7 +39,7 @@ public class MovingPeople_trying_2nd {
 		// Step2 : calc the result
 		int res = 0;
 		while(true) {
-			visit = new boolean[N][N];
+			visit = new boolean[N][N]; //방문 초기화
 			if(scan())
 				res++;
 			else
@@ -74,15 +74,11 @@ public class MovingPeople_trying_2nd {
 		int thisCountry, x, y;
 		for(int i=0; i<unionSize; i++) {
 			thisCountry = union.get(i);
-			x = thisCountry/N;
-			y = thisCountry%N;
-			totUnionPop += worldMap[x*N+y]; 
+			totUnionPop += worldMap[thisCountry]; 
 		}
 		for(int i=0; i<unionSize; i++) {
 			thisCountry = union.get(i);
-			x = thisCountry/N;
-			y = thisCountry%N;
-			worldMap[x*N+y] = totUnionPop / unionSize;
+			worldMap[thisCountry] = totUnionPop / unionSize;
 		}
 	}
 
@@ -95,8 +91,7 @@ public class MovingPeople_trying_2nd {
 			nextX = x+dx[i]; nextY = y+dy[i];
 			if(nextX < 0 || nextX >=N ||nextY < 0 || nextY >=N) continue;
 			if(!visit[nextX][nextY]){
-				int diffPop = getDiff(worldMap[x*N+y], worldMap[nextX*N+nextY]);
-				if(diffPop >= L && diffPop <= R) {
+				if(openBorder(worldMap[x*N+y], worldMap[nextX*N+nextY])) {
 					union.add(nextX*N + nextY);
 					dfs(nextX, nextY, union);
 				}
@@ -108,4 +103,10 @@ public class MovingPeople_trying_2nd {
 		return a>b?a-b:b-a;
 	}
 
+	static boolean openBorder(int countryA, int countryB) {
+		int diff = Math.abs(countryA - countryB); 
+		if(diff < L) return false;
+		if(diff > R) return false;
+		return true;
+	}
 }

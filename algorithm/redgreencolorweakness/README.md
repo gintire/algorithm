@@ -1,10 +1,13 @@
+
 적록색약
 ===============
 > 백준 10026번 문제
 > https://www.acmicpc.net/problem/10026
 
 <hr/>
+
 > 풀이 전략
+
 1. 초기화 ( N과 N*N 그리드를 받는다)
 2. 맵을 스캔하는 함수 생성 (scan())    
      방문한적이 없는 곳이면 컬러 그룹에 넣는다. (arraylist cGroup, rgcGroup)

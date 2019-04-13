@@ -19,5 +19,6 @@
     <module>Util</module>
     <module>redgreencolorweakness</module>
     <module>saftyarea</module>
+    <module>harvestHoney</module>
   </modules>
 </project>

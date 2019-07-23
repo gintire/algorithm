@@ -20,5 +20,12 @@
     <module>redgreencolorweakness</module>
     <module>saftyarea</module>
     <module>harvestHoney</module>
+    <module>isolateMicroorganism</module>
+    <module>virus</module>
+    <module>assignMeetingroom</module>
+    <module>searchNumber</module>
+    <module>matrix</module>
+    <module>airCleaner</module>
+    <module>party</module>
   </modules>
 </project>

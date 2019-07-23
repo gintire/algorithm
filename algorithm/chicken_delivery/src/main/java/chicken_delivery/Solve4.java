@@ -21,7 +21,7 @@ public class Solve4 {
 	static int N, M;
 	static ArrayList<Point2> chickenRest = new ArrayList<>();
 	static ArrayList<Point2> houseRest = new ArrayList<>();
-	
+	 
 	static int houseCnt, chickenCnt, res = Integer.MAX_VALUE;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

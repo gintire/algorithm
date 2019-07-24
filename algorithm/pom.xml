@@ -28,5 +28,6 @@
     <module>airCleaner</module>
     <module>party</module>
     <module>algospot</module>
+    <module>oddNumberTower</module>
   </modules>
 </project>

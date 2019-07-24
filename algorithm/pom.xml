@@ -27,5 +27,6 @@
     <module>matrix</module>
     <module>airCleaner</module>
     <module>party</module>
+    <module>algospot</module>
   </modules>
 </project>

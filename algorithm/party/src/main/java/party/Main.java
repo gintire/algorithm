@@ -3,8 +3,11 @@ package party;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  * 백준 1238 파티문제
@@ -74,7 +77,7 @@ public class Main {
 	}
 	
 	public static int[] dijkstra(int start, int[][] direction) {
-		PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+		Queue<Integer> pq = new LinkedList<Integer>();
 		pq.offer(start);
 		int[] dist = new int[N];
 		Arrays.fill(dist, INF);

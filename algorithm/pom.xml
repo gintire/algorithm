@@ -29,5 +29,13 @@
     <module>party</module>
     <module>algospot</module>
     <module>oddNumberTower</module>
+    <module>correctCalc</module>
+    <module>makeGroup</module>
+    <module>RootedBinaryTree</module>
+    <module>subSummary</module>
+    <module>kingOfFishing</module>
+    <module>letters</module>
+    <module>subsummay3</module>
+    <module>multiArrayAndCalc</module>
   </modules>
 </project>

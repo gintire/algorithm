@@ -37,5 +37,6 @@
     <module>letters</module>
     <module>subsummay3</module>
     <module>multiArrayAndCalc</module>
+    <module>babyShark</module>
   </modules>
 </project>

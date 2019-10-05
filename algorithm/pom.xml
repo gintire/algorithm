@@ -44,5 +44,6 @@
     <module>Firstgrade</module>
     <module>naver2019</module>
     <module>setMirror</module>
+    <module>dijkstra</module>
   </modules>
 </project>

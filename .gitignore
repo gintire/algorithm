@@ -3,3 +3,4 @@
 *.recommenders
 .project
 .settings
+target/

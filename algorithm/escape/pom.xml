@@ -5,5 +5,5 @@
     <artifactId>algorithm</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>numberingApartment</artifactId>
+  <artifactId>escape</artifactId>
 </project>

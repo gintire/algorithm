@@ -47,5 +47,6 @@
     <module>escape</module>
     <module>treasueIsland</module>
     <module>treasureisland</module>
+    <module>tomato</module>
   </modules>
 </project>

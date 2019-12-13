@@ -50,5 +50,9 @@
     <module>tomato</module>
     <module>kakao2019turnovertest</module>
     <module>buyingNotebook</module>
+    <module>cakedelivery</module>
+    <module>combineanddevide</module>
+    <module>leechinsoo</module>
+    <module>jump_jump</module>
   </modules>
 </project>
